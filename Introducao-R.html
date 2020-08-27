@@ -4,7 +4,7 @@
     <title>Introdução ao R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Anny K. G. Rodrigues" />
-    <meta name="date" content="2020-08-26" />
+    <meta name="date" content="2020-08-27" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
@@ -32,7 +32,7 @@ class: center, middle, inverse, title-slide
 ## ⚔<br/>com xaringan
 ### Anny K. G. Rodrigues
 ### IME-USP
-### 2020-08-26
+### 2020-08-27
 
 ---
 
@@ -108,13 +108,79 @@ A versão mais recente da linguagem R pode ser baixada em https://www.r-project.
 ### RStudio
 
 A plataforma Rstudio foi desenhada para rodar códigos da linguagem R.
-Você pode baixar em [RStudio IDE](https://www.rstudio.com/products/rstudio/).
+Você pode baixar em [RStudio IDE](https://rstudio.com/products/rstudio/download/#download).
+
+
+---
+### Arquivos
+
+Os R gera alguns tipos de arquivos que podem ser salvos. As principais deles são:
+
+- **.R** -Usado para salvar códigos criados e rotinas de análises (scripts).
+
+- **.RData** - Usado para salvar os objetos da área de trabalho (workspace).
+
+- **.Rhistory** - Usado para salvar o histórico dos comandos executados (normalmente salvo automaticamente).
+
+- **.Rproj** - Formato exclusivo do RStudio, serve para salvar todas as informações utilizadas anteriormente pelo RStudio de maneira simplificada.
+
+### Área de trabalho e diretório de trabalho
+
+- getwd() # Mostrar o diretório de trabalho atual
+
+- dir()   # Listar os arquivos do diretório
+
+- setwd() # Mudar o diretório de trabalho
 
 
 ---
 
+### Help!
 
- ### Linha de Comando
+- Pedir ajuda: **help**(nome_da_função) ou **?**(nome_da_função)
+
+
+```r
+?mean()
+```
+
+### Pacotes no R
+
+**1. Instalar**
+
+- Via CRAN 
+
+```r
+install.packages("tidyverse")
+```
+
+- Via GitHub
+
+
+```r
+devtools::install_github("tidyverse/purr") 
+```
+
+---
+**2. Carregar**
+
+- library(nome_do_pacote)
+
+
+```r
+library(tidyverse)
+```
+
+- require(nome_do_pacote)
+
+
+```r
+require(tidyverse)
+```
+
+
+---
+ ### Sintaxe Básica dos Comandos
 
 O R é uma linguagem interativa, ou seja, que permite ao usuário enviar um comando por vez e receber o resultado.
 
@@ -128,6 +194,30 @@ O R é uma linguagem interativa, ou seja, que permite ao usuário enviar um coma
 ```
 
 ```r
+3-1
+```
+
+```
+## [1] 2
+```
+
+```r
+4/2
+```
+
+```
+## [1] 2
+```
+
+```r
+5*3
+```
+
+```
+## [1] 15
+```
+
+```r
 sqrt(4)
 ```
 
@@ -138,7 +228,7 @@ sqrt(4)
 - O sinal `\(&gt;\)` indica que o R está pronto para receber um comando.
 - O sinal `\(+\)` é o estado de espera, indica que o usuário enviou um comando incompleto.
 
-### Sintaxe Básica dos Comandos
+### 
 
  Um comando no R em geral inclui uma ou mais funções, que seguem a seguinte sintaxe:
  
@@ -375,8 +465,8 @@ library(leaflet)
 leaflet() %&gt;% addTiles() %&gt;% setView(-93.65, 42.0285, zoom = 17)
 ```
 
-<div id="htmlwidget-2ae5845b81d5f81d1a71" style="width:100%;height:432px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ae5845b81d5f81d1a71">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4e2067b56e273f24ba59" style="width:100%;height:432px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4e2067b56e273f24ba59">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -388,8 +478,8 @@ DT::datatable(
 )
 ```
 
-<div id="htmlwidget-38bdca81f1d096ed180b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-38bdca81f1d096ed180b">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b8c3a87b2645b414ab5f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b8c3a87b2645b414ab5f">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 

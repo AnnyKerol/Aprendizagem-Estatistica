@@ -86,25 +86,94 @@ A versão mais recente da linguagem R pode ser baixada em https://www.r-project.
 ### RStudio
 
 A plataforma Rstudio foi desenhada para rodar códigos da linguagem R.
-Você pode baixar em [RStudio IDE](https://www.rstudio.com/products/rstudio/).
+Você pode baixar em [RStudio IDE](https://rstudio.com/products/rstudio/download/#download).
+
+
+---
+### Arquivos
+
+Os R gera alguns tipos de arquivos que podem ser salvos. As principais deles são:
+
+- **.R** -Usado para salvar códigos criados e rotinas de análises (scripts).
+
+- **.RData** - Usado para salvar os objetos da área de trabalho (workspace).
+
+- **.Rhistory** - Usado para salvar o histórico dos comandos executados (normalmente salvo automaticamente).
+
+- **.Rproj** - Formato exclusivo do RStudio, serve para salvar todas as informações utilizadas anteriormente pelo RStudio de maneira simplificada.
+
+### Área de trabalho e diretório de trabalho
+
+- getwd() # Mostrar o diretório de trabalho atual
+
+- dir()   # Listar os arquivos do diretório
+
+- setwd() # Mudar o diretório de trabalho
 
 
 ---
 
+### Help!
 
- ### Linha de Comando
+- Pedir ajuda: **help**(nome_da_função) ou **?**(nome_da_função)
+
+```{r}
+?mean()
+
+```
+
+### Pacotes no R
+
+**1. Instalar**
+
+- Via CRAN 
+```{r echo=TRUE, eval = FALSE, cache=TRUE, warning=FALSE}
+install.packages("tidyverse")
+```
+
+- Via GitHub
+
+```{r echo=TRUE, cache=TRUE, eval=FALSE, warning=FALSE}
+devtools::install_github("tidyverse/purr") 
+```
+
+---
+**2. Carregar**
+
+- library(nome_do_pacote)
+
+```{r echo=TRUE, cache=TRUE, eval=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+- require(nome_do_pacote)
+
+```{r echo=TRUE, cache=TRUE, eval=FALSE, warning=FALSE}
+require(tidyverse)
+```
+
+
+---
+ ### Sintaxe Básica dos Comandos
 
 O R é uma linguagem interativa, ou seja, que permite ao usuário enviar um comando por vez e receber o resultado.
 
 ```{r results='markup'}
 2+2
+
+3-1
+
+4/2
+
+5*3
+
 sqrt(4)
 ```
 
 - O sinal $>$ indica que o R está pronto para receber um comando.
 - O sinal $+$ é o estado de espera, indica que o usuário enviou um comando incompleto.
 
-### Sintaxe Básica dos Comandos
+### 
 
  Um comando no R em geral inclui uma ou mais funções, que seguem a seguinte sintaxe:
  
