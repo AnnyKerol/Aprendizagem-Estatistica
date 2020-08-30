@@ -152,33 +152,143 @@ library(tidyverse)
 require(tidyverse)
 ```
 
+### Atalhos 
+
+- CTRL + ENTER: roda a linha selecionada no script.
+
+- ALT + -: (<-) sinal de atribuição.
 
 ---
  ### Sintaxe Básica dos Comandos
 
-O R é uma linguagem interativa, ou seja, que permite ao usuário enviar um comando por vez e receber o resultado.
+```{r results='markup'}
+2+2 # Adição
+
+3-1 # subtração
+
+4/2 # divisão
+
+5*3 # multiplicação
+```
+
+---
+
+ ### Sintaxe Básica dos Comandos
 
 ```{r results='markup'}
-2+2
+9 %% 5   # resto da divisão de 9 por 5
 
-3-1
+7 %/% 4  # parte inteira da divisão de 7  por 4 
 
-4/2
+4^ 2    # potenciação
 
-5*3
+sqrt(16) # radiciação
 
-sqrt(4)
+
 ```
+
 
 - O sinal $>$ indica que o R está pronto para receber um comando.
 - O sinal $+$ é o estado de espera, indica que o usuário enviou um comando incompleto.
 
-### 
+---
 
- Um comando no R em geral inclui uma ou mais funções, que seguem a seguinte sintaxe:
- 
-**função(argumento1 = valor, argumento2 = valor , …)**
+### Atribuição de Objetos no R
 
+Os objetos dentro do R podem ser salvos temporariamente na área de trabalho (workspace). Para atribuir um objeto utilizamos:
+
+O atalho ALT + $-$ que gera o operador $<-$, ou o símbolo de igual $(=)$
+
+- nome_do_objeto $<-$ valor
+- nome_do_objeto $=$ valor
+
+```{r results='markup'}
+
+x <- 15
+x
+
+disciplina <- "Aprendizagem Estatística"
+disciplina
+
+Saldo <- TRUE
+Saldo
+```
+
+---
+
+### Tipos de objetos e Estruturas de Dados
+
+- Character: texto
+
+```{r}
+nome <- "Ana"
+nome  # sempre com aspas
+class(nome)
+```
+
+
+- Numeric: números racionais ou inteiros
+```{r}
+y <- 4.5
+y
+class(y)
+
+```
+
+---
+
+### Tipos de objetos e Estruturas de Dados
+
+- Logical: TRUE, FALSE ou NA
+```{r}
+ordem <- TRUE
+ordem
+class(TRUE)
+```
+
+- Complex: números complexos 
+```{r}
+numero <- 4+5i
+numero
+class(numero)
+```
+
+---
+
+### Tipos de objetos e Estruturas de Dados
+
+- Factor: variavéis categóricas
+
+```{r}
+Ordem <- c("Compra", "Venda")
+Ordem <- as.factor(Ordem) 
+Ordem
+
+```
+
+A função as.factor() transforma a variável Ordem em um fator.
+
+Levels: Refere-se aos rótulos da variável Ordem.
+
+```{r, out.width="20%", fig.align='center', echo = FALSE }
+knitr::include_graphics("forcats.png")
+```
+
+O pacote [forcats](https://forcats.tidyverse.org/) é ideal para trabalhar com este tipo de variável.
+
+---
+
+```{r, out.width="80%", fig.align='center', echo = FALSE, fig.cap="Fonte: [Mgimond](https://mgimond.github.io/ES218/Week02a.html#data_structures)"}
+knitr::include_graphics("data_structures.png")
+```
+
+
+- **Vetor**: armazena elementos de mesmo tipo e/ ou classe. Um vetor pode ser criado usando a função c().
+
+- **Matriz**: 
+
+- Data Frame
+- Listas
 
 
 ---
