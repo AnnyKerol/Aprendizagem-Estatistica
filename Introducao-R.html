@@ -4,7 +4,7 @@
     <title>Introdução ao R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Anny K. G. Rodrigues" />
-    <meta name="date" content="2020-08-30" />
+    <meta name="date" content="2020-08-31" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
@@ -32,7 +32,7 @@ class: center, middle, inverse, title-slide
 ## ⚔<br/>com xaringan
 ### Anny K. G. Rodrigues
 ### IME-USP
-### 2020-08-30
+### 2020-08-31
 
 ---
 
@@ -415,17 +415,205 @@ O pacote [forcats](https://forcats.tidyverse.org/) é ideal para trabalhar com e
 ---
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="data_structures.png" alt="Fonte: [Mgimond](https://mgimond.github.io/ES218/Week02a.html#data_structures)" width="80%" /&gt;
-&lt;p class="caption"&gt;Fonte: [Mgimond](https://mgimond.github.io/ES218/Week02a.html#data_structures)&lt;/p&gt;
+&lt;img src="data_structures.png" alt="(https://mgimond.github.io/ES218/Week02a.html#data_structures)" width="75%" /&gt;
+&lt;p class="caption"&gt;(https://mgimond.github.io/ES218/Week02a.html#data_structures)&lt;/p&gt;
 &lt;/div&gt;
 
 
-- **Vetor**: armazena elementos de mesmo tipo e/ ou classe. Um vetor pode ser criado usando a função c().
+- **Vetor**: Armazena elementos de mesmo tipo e/ ou classe. Um vetor pode ser criado usando a função c().
 
-- **Matriz**: 
+- **Matriz**: Matrizes em R podem ser pensadas como vetores indexados usando dois índices em vez de um. São estruturas bidimensionais.
 
-- Data Frame
-- Listas
+- **Data Frame**: São tabelas de dados com linhas e colunas, como uma tabela do Excel. Pode conter diferentes tipos de dados (numérico, fator, …).
+- **Listas**: Uma lista é um conjunto ordenado de componentes armazenados em um vetor 1D.
+
+---
+
+### Tipos de objetos e Estruturas de Dados
+
+
+```r
+vetor &lt;- c(1.2,2.5,3.7,4,5)
+length(vetor) # retorna o tamanho do vetor
+```
+
+```
+## [1] 5
+```
+
+```r
+vetor[3] # acessando o elemento da terceira posição do meu vetor
+```
+
+```
+## [1] 3.7
+```
+
+```r
+matriz &lt;- matrix(1:12, nrow = 3, ncol = 4, byrow = TRUE)
+matriz
+```
+
+```
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8
+## [3,]    9   10   11   12
+```
+
+```r
+dim(matriz) # retorna a dimensão da matriz
+```
+
+```
+## [1] 3 4
+```
+
+---
+### Tipos de objetos e Estruturas de Dados
+
+```r
+matriz[1,2]  # acessa o elemento da linha 1 coluna 2
+```
+
+```
+## [1] 2
+```
+
+```r
+matriz[1,]   # acessa todos os elementos da linha 1
+```
+
+```
+## [1] 1 2 3 4
+```
+
+```r
+matriz[,2]  # acessa todos os elementos da coluna 2
+```
+
+```
+## [1]  2  6 10
+```
+
+```r
+dados &lt;- data.frame(ano = 2000:2004,
+                 prod = c(32, 54, 25, 48, 29))
+dados
+```
+
+```
+##    ano prod
+## 1 2000   32
+## 2 2001   54
+## 3 2002   25
+## 4 2003   48
+## 5 2004   29
+```
+
+---
+
+### Tipos de objetos e Estruturas de Dados
+
+
+```r
+dim(dados) # dimensãoes do data frame
+```
+
+```
+## [1] 5 2
+```
+
+```r
+str(dados) # tipos de variáveis no data frame 
+```
+
+```
+## 'data.frame':	5 obs. of  2 variables:
+##  $ ano : int  2000 2001 2002 2003 2004
+##  $ prod: num  32 54 25 48 29
+```
+
+```r
+dados[,1]
+```
+
+```
+## [1] 2000 2001 2002 2003 2004
+```
+
+```r
+dados[,2]
+```
+
+```
+## [1] 32 54 25 48 29
+```
+
+
+---
+
+### Tipos de objetos e Estruturas de Dados
+
+
+```r
+minha_lista &lt;- list() # cria uma lista vazia
+
+ls() # lista todos os objetos 
+```
+
+```
+##  [1] "dados"       "disciplina"  "matriz"      "minha_lista" "nome"       
+##  [6] "numero"      "ordem"       "Ordem"       "Saldo"       "vetor"      
+## [11] "x"           "y"
+```
+
+```r
+minha_lista[[1]] &lt;- dados 
+minha_lista[[2]] &lt;-matriz
+minha_lista[[3]] &lt;-vetor
+```
+---
+### Tipos de objetos e Estruturas de Dados
+
+```r
+minha_lista
+```
+
+```
+## [[1]]
+##    ano prod
+## 1 2000   32
+## 2 2001   54
+## 3 2002   25
+## 4 2003   48
+## 5 2004   29
+## 
+## [[2]]
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8
+## [3,]    9   10   11   12
+## 
+## [[3]]
+## [1] 1.2 2.5 3.7 4.0 5.0
+```
+
+```r
+minha_lista[[3]] # acessando o vetor na lista
+```
+
+```
+## [1] 1.2 2.5 3.7 4.0 5.0
+```
+
+```r
+minha_lista[[3]][5] # acessando a posição 5 do vetor na lista
+```
+
+```
+## [1] 5
+```
 
 
 ---
@@ -657,8 +845,8 @@ library(leaflet)
 leaflet() %&gt;% addTiles() %&gt;% setView(-93.65, 42.0285, zoom = 17)
 ```
 
-<div id="htmlwidget-7142fd7ce373d7551f98" style="width:100%;height:432px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7142fd7ce373d7551f98">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e09a31e48f85cad9bc9" style="width:100%;height:432px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e09a31e48f85cad9bc9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[42.0285,-93.65],17,[]]},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -670,8 +858,8 @@ DT::datatable(
 )
 ```
 
-<div id="htmlwidget-32737eb7fd1455f1c52c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-32737eb7fd1455f1c52c">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7c41a63020f6870e6cb0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7c41a63020f6870e6cb0">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
