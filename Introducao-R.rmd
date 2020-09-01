@@ -356,7 +356,9 @@ minha_lista[[3]] # acessando o vetor na lista
 minha_lista[[3]][5] # acessando a posição 5 do vetor na lista
 
 ```
+---
 
+### Um pouco mais sobre data frames
 
 ---
 
