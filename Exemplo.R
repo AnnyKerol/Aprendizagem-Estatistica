@@ -35,4 +35,17 @@ dados %>% select(contains("w")) # seleciona colunas que contêm w
 dados %>% select(name,height) %>%
   mutate(heigth_m=height/100)
 
+# summarise
+dados %>% summarise(mean(mass, na.rm = TRUE))
+
+dados %>% summarise(max(mass, na.rm = TRUE))
+
+dados %>% summarise(min(mass, na.rm = TRUE))
+
+# group_by
+
+dados %>% group_by(species) %>%
+             summarise(Total=n()) %>% arrange(desc(Total)) %>% drop_na()
+
+
 

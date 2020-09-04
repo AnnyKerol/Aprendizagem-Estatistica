@@ -4,7 +4,7 @@
     <title>Introdução ao R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Anny K. G. Rodrigues" />
-    <meta name="date" content="2020-09-03" />
+    <meta name="date" content="2020-09-04" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 ## ⚔<br/>com xaringan
 ### Anny K. G. Rodrigues
 ### IME-USP
-### 2020-09-03
+### 2020-09-04
 
 ---
 
@@ -923,7 +923,7 @@ dados %&gt;%  filter(eye_color=="yellow") %&gt;% arrange(mass)
 
 ### select
 
-Seleciona colunas na base de dados.
+Seleciona as colunas na base de dados.
 
 
 ```r
@@ -983,11 +983,17 @@ dados %&gt;% select(contains("w")) %&gt;% names()
 
 ---
 
+background-image: url(dplyr_mutate.png)
+background-position: 90% 5% 
+background-size: 3%
+
+
 ### mutate
 
-
+Cria ou modifica uma coluna na base de dados.
 
 ```r
+# criando uma nova variável alura em metros
 dados %&gt;% select(name,height) %&gt;%
                            mutate(heigth_m=height/100)
 ```

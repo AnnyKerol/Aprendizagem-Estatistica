@@ -584,7 +584,7 @@ dados %>%  filter(eye_color=="yellow") %>% arrange(mass)
 
 ### select
 
-Seleciona colunas na base de dados.
+Seleciona as colunas na base de dados.
 
 ```{r results='hold'}
 
@@ -614,11 +614,17 @@ dados %>% select(contains("w")) %>% names()
 
 ---
 
+background-image: url(dplyr_mutate.png)
+background-position: 90% 5% 
+background-size: 3%
+
+
 ### mutate
 
-
+Cria ou modifica uma coluna na base de dados.
 ```{r }
 
+# criando uma nova variável alura em metros
 dados %>% select(name,height) %>%
                            mutate(heigth_m=height/100)
 
