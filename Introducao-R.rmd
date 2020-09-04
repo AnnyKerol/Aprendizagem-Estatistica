@@ -530,60 +530,105 @@ Pacote readxl: função para ler arquivo Excel
 
 ---
 
-# R Code
+### dplyr: Principais verbos
 
-```{r comment='#'}
-# a boring regression
-fit = lm(dist ~ 1 + speed, data = cars)
-coef(summary(fit))
-dojutsu = c('地爆天星', '天照', '加具土命', '神威', '須佐能乎', '無限月読')
-grep('天', dojutsu, value = TRUE)
-```
+A ideia do pacote **dplyr** é tornar a manipulação de dados explícita.
 
----
+- **filter()**: seleciona linhas
 
-# R Plots
+- **arrange()**: ordena de acordo com uma ou mais colunas
 
-```{r cars, fig.height=4, dev='svg'}
-par(mar = c(4, 4, 1, .1))
-plot(cars, pch = 19, col = 'darkgray', las = 1)
-abline(fit, lwd = 2)
-```
+- **select()**: seleciona colunas
+
+- **mutate()**: cria/modifica colunas
+
+- **summarise()**: sumariza/agrega colunas
+
+- **group_by()**: agrupa colunas
 
 ---
 
-# Tables
+### filter
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+```{r results='hold'}
+
+data("starwars")
+dados <- starwars
+
+dados %>%  filter(species =="Human" & eye_color=="blue") 
+
+```
+
+
+
+
+---
+
+### arrange 
+
+Ordenar as linhas da base de dados conforme uma ou mais variáveis.
+
+```{r results='hold'}
+# Ordenando os personagens pela altura em cm
+dados %>% arrange(height) # default ordem crescente
+```
+---
+### filter e arrange
 
 ```{r}
-knitr::kable(head(iris), format = 'html')
+dados %>%  filter(eye_color=="yellow") %>% arrange(mass)
+
 ```
 
 ---
 
-# HTML Widgets
+### select
 
-I have not thoroughly tested HTML widgets against **xaringan**. Some may work well, and some may not. It is a little tricky.
+Seleciona colunas na base de dados.
 
-Similarly, the Shiny mode (`runtime: shiny`) does not work. I might get these issues fixed in the future, but these are not of high priority to me. I never turn my presentation into a Shiny app. When I need to demonstrate more complicated examples, I just launch them separately. It is convenient to share slides with other people when they are plain HTML/JS applications.
+```{r results='hold'}
 
-See the next page for two HTML widgets.
+dados %>% select(name,species,homeworld)
+
+
+```
 
 ---
 
-```{r out.width='100%', fig.height=6, eval=require('leaflet')}
-library(leaflet)
-leaflet() %>% addTiles() %>% setView(-93.65, 42.0285, zoom = 17)
+### Funções úteis do select
+
+- **starts_with("h")**: seleciona colunas que começam com "h"
+```{r}
+dados %>% select(starts_with("h")) %>% names()
+```
+
+- **ends_with("or")**: seleciona colunas que terminam com "or"
+```{r}
+dados %>% select(ends_with("or")) %>% names()
+```
+
+- **contains("w")**: seleciona colunas que contêm "w"
+```{r}
+dados %>% select(contains("w")) %>% names()
+```
+
+---
+
+### mutate
+
+
+```{r }
+
+dados %>% select(name,height) %>%
+                           mutate(heigth_m=height/100)
+
+
 ```
 
 ---
 
 ```{r eval=require('DT'), tidy=FALSE}
-DT::datatable(
-  head(iris, 10),
-  fillContainer = FALSE, options = list(pageLength = 8)
-)
+
 ```
 
 ---
