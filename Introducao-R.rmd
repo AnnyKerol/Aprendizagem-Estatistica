@@ -473,7 +473,7 @@ knitr::include_graphics("tidyverse.png")
 ```
 ---
 
-background-image: url(ggplot2.png)
+background-image: url(ggplot22.png)
 background-position: 90% 5% 
 background-size: 50%
 
@@ -534,6 +534,7 @@ Pacote readxl: função para ler arquivo Excel
 
 A ideia do pacote **dplyr** é tornar a manipulação de dados explícita.
 
+
 - **filter()**: seleciona linhas
 
 - **arrange()**: ordena de acordo com uma ou mais colunas
@@ -558,10 +559,6 @@ dados <- starwars
 dados %>%  filter(species =="Human" & eye_color=="blue") 
 
 ```
-
-
-
-
 ---
 
 ### arrange 
@@ -577,7 +574,7 @@ dados %>% arrange(height) # default ordem crescente
 
 ```{r}
 dados %>%  filter(eye_color=="yellow") %>% arrange(mass)
-
+#Dud Bolt  
 ```
 
 ---
@@ -614,17 +611,14 @@ dados %>% select(contains("w")) %>% names()
 
 ---
 
-background-image: url(dplyr_mutate.png)
-background-position: 90% 5% 
-background-size: 3%
 
 
 ### mutate
 
 Cria ou modifica uma coluna na base de dados.
-```{r }
+```{r results='hold'}
 
-# criando uma nova variável alura em metros
+# criando uma nova variável altura em metros
 dados %>% select(name,height) %>%
                            mutate(heigth_m=height/100)
 
@@ -633,9 +627,73 @@ dados %>% select(name,height) %>%
 
 ---
 
-```{r eval=require('DT'), tidy=FALSE}
+### summarise
+
+Resume os valores das colunas em um só valor, de acordo com funções como
+média, mediana, min, máx etc.
+
+```{r results='hold'}
+
+dados %>% summarise(mean(mass, na.rm = TRUE))
+
+dados %>% summarise(max(mass, na.rm = TRUE))
+
+dados %>% summarise(min(mass, na.rm = TRUE))
+```
+---
+
+### group_by
+
+Agrupa as colunas de uma base de dados. 
+
+```{r results='hold'}
+
+dados %>% group_by(species) %>%
+             summarise(Total=n()) %>% 
+                    arrange(desc(Total)) %>% drop_na()
+```
+
+---
+
+
+### ggplot2
+
+- divide os gráficos em componentes semânticos como escalas e camadas.
+
+```{r fig.align='center', fig.height=5}
+ggplot(dados, aes(x = eye_color)) + 
+  geom_bar()+
+  coord_flip() # inverte os eixos do gráfico
+```
+
+---
+
+### ggplot2
+
+```{r fig.align='center', fig.height=5}
+dados %>% mutate(eye_color=fct_infreq(eye_color)) %>%# ordenando os fatores 
+ggplot(aes(x = eye_color)) + 
+  geom_bar()+
+  coord_flip()
 
 ```
+
+Os levels da variável eye_color estão ordenados.
+---
+
+```{r fig.align='center', fig.height=5}
+library(viridis)
+dados %>% mutate(eye_color=fct_infreq(eye_color)) %>%# ordenando os fatores 
+ggplot(aes(x = eye_color, fill=eye_color)) + 
+  geom_bar()+
+  coord_flip() +
+  theme_bw()+
+   scale_fill_viridis_d(option = "inferno")
+
+## ajeitar esse gráfico, retirar um slide, ajeitar o inicio, corrigir os erros de portgues
+  
+```
+
 
 ---
 

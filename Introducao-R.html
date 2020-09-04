@@ -755,7 +755,7 @@ background-size: 10%
 &lt;img src="tidyverse.png" width="15%" style="display: block; margin: auto;" /&gt;
 ---
 
-background-image: url(ggplot2.png)
+background-image: url(ggplot22.png)
 background-position: 90% 5% 
 background-size: 50%
 
@@ -816,6 +816,7 @@ Pacote readxl: função para ler arquivo Excel
 
 A ideia do pacote **dplyr** é tornar a manipulação de dados explícita.
 
+
 - **filter()**: seleciona linhas
 
 - **arrange()**: ordena de acordo com uma ou mais colunas
@@ -859,10 +860,6 @@ dados %&gt;%  filter(species =="Human" &amp; eye_color=="blue")
 ## # … with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 ## #   vehicles &lt;list&gt;, starships &lt;list&gt;
 ```
-
-
-
-
 ---
 
 ### arrange 
@@ -917,6 +914,10 @@ dados %&gt;%  filter(eye_color=="yellow") %&gt;% arrange(mass)
 ## 11 Yara…    264    NA none       white      yellow          NA   male  
 ## # … with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 ## #   vehicles &lt;list&gt;, starships &lt;list&gt;
+```
+
+```r
+#Dud Bolt  
 ```
 
 ---
@@ -983,9 +984,6 @@ dados %&gt;% select(contains("w")) %&gt;% names()
 
 ---
 
-background-image: url(dplyr_mutate.png)
-background-position: 90% 5% 
-background-size: 3%
 
 
 ### mutate
@@ -993,7 +991,7 @@ background-size: 3%
 Cria ou modifica uma coluna na base de dados.
 
 ```r
-# criando uma nova variável alura em metros
+# criando uma nova variável altura em metros
 dados %&gt;% select(name,height) %&gt;%
                            mutate(heigth_m=height/100)
 ```
@@ -1017,6 +1015,116 @@ dados %&gt;% select(name,height) %&gt;%
 
 ---
 
+### summarise
+
+Resume os valores das colunas em um só valor, de acordo com funções como
+média, mediana, min, máx etc.
+
+
+```r
+dados %&gt;% summarise(mean(mass, na.rm = TRUE))
+
+dados %&gt;% summarise(max(mass, na.rm = TRUE))
+
+dados %&gt;% summarise(min(mass, na.rm = TRUE))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(mass, na.rm = TRUE)`
+##                        &lt;dbl&gt;
+## 1                       97.3
+## # A tibble: 1 x 1
+##   `max(mass, na.rm = TRUE)`
+##                       &lt;dbl&gt;
+## 1                      1358
+## # A tibble: 1 x 1
+##   `min(mass, na.rm = TRUE)`
+##                       &lt;dbl&gt;
+## 1                        15
+```
+---
+
+### group_by
+
+Agrupa as colunas de uma base de dados. 
+
+
+```r
+dados %&gt;% group_by(species) %&gt;%
+             summarise(Total=n()) %&gt;% 
+                    arrange(desc(Total)) %&gt;% drop_na()
+```
+
+```
+## # A tibble: 37 x 2
+##    species  Total
+##    &lt;chr&gt;    &lt;int&gt;
+##  1 Human       35
+##  2 Droid        5
+##  3 Gungan       3
+##  4 Kaminoan     2
+##  5 Mirialan     2
+##  6 Twi'lek      2
+##  7 Wookiee      2
+##  8 Zabrak       2
+##  9 Aleena       1
+## 10 Besalisk     1
+## # … with 27 more rows
+```
+
+---
+
+
+### ggplot2
+
+- divide os gráficos em componentes semânticos como escalas e camadas.
+
+
+```r
+ggplot(dados, aes(x = eye_color)) + 
+  geom_bar()+
+  coord_flip() # inverte os eixos do gráfico
+```
+
+&lt;img src="Introducao-R_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+### ggplot2
+
+
+```r
+dados %&gt;% mutate(eye_color=fct_infreq(eye_color)) %&gt;%# ordenando os fatores 
+ggplot(aes(x = eye_color)) + 
+  geom_bar()+
+  coord_flip()
+```
+
+&lt;img src="Introducao-R_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+
+Os levels da variável eye_color estão ordenados.
+---
+
+
+```r
+library(viridis)
+```
+
+```
+## Loading required package: viridisLite
+```
+
+```r
+dados %&gt;% mutate(eye_color=fct_infreq(eye_color)) %&gt;%# ordenando os fatores 
+ggplot(aes(x = eye_color, fill=eye_color)) + 
+  geom_bar()+
+  coord_flip() +
+  theme_bw()+
+   scale_colour_viridis_c(option = "inferno")
+```
+
+&lt;img src="Introducao-R_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
