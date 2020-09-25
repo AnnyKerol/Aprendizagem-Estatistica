@@ -4,7 +4,7 @@
 # Ler e transformar os dados 
 dados <- read.table("prostate.txt")
 dim(dados)
-#summary(dados[,-9])
+summary(dados[,-9])
 View(dados)
 dados[,1:8] <- scale(dados[,1:8],TRUE,TRUE)
 View(dados)
@@ -67,7 +67,7 @@ lm.fit1=update(lm.fit, ~.-age)
 
 summary(lm(lpsa~lcavol*age,data=dados[,1:8]))
 
-# Non-linear Transformations of the Predictors --------
+  # Non-linear Transformations of the Predictors --------
 
 lm.fit2=lm(lpsa~lcavol+I(lcavol^2))
 summary(lm.fit2)
@@ -94,24 +94,21 @@ plot(lm.fit2)
 lm.fit5=lm(lpsa~poly(lcavol,5))
 
 summary(lm.fit5)
+names(dados)
 
 # Of course, we are in no way restricted to using polynomial transformations of
 # the predictors. Here we try a log transformation.
-
-summary(lm(lpsa~log(rm),data=dados[,1:8]))
-
-
+  
 library(glmnet)
 
 #### Ridge Regression ################
 
-x <- model.matrix(lpsa~.,dados[1:8])[,-1]  #matriz de preditores
+x <- model.matrix(lpsa~.,dados[,1:8])[,-1]  #matriz de preditores
 y <- dados$lpsa                            # variável resposta
 
 fit.ridge <- glmnet(x, y, alpha = 0, lambda = 2)
 coef(fit.ridge)                # valores dos coeficientes estimados
 y_predicted <- predict(fit.ridge,newx = x)
-
 mean(y_predicted-y)^2 # MSE 
 
 fit.ridge2 <- glmnet(x, y, alpha = 0, lambda = 5)
@@ -127,7 +124,7 @@ mean(y_predicted3-y)^2
 
 ###### LASSO  #########################
 
-fit.lasso <- glmnet(x,y,alpha = 1, lambda = 0.1)
+fit.lasso <- glmnet(x,y, alpha = 1, lambda = 0.1)
 y_hat <-  predict(fit.lasso,newx = x)
 coef(fit.lasso)
 mean(y_hat-y)^2
@@ -140,12 +137,13 @@ mean(y_hat2-y)^2
 fit.lasso2 <- glmnet(x,y,alpha = 1, lambda = 1)
 y_hat2 <-  predict(fit.lasso2,newx = x)
 coef(fit.lasso2)
-mean(y_hat2-y)^2
+mean(y_hat2-y)^2 # MSE
 
 
 #### Ridge com CV
 
-grid <- 10^seq(10,-2,length=100)
+grid <- 10^seq(10,-3,length=100)
+
 
 cv_ridge <- cv.glmnet(x, y, alpha = 0, lambda = grid) #validação cruzada 
 best_lam <- cv_ridge$lambda.min # melhor lambda de acordo com o menor erro de validação
@@ -168,7 +166,56 @@ y_preds <-predict(lasso.mod,s=best_lam,newx = x)
 mean(y_preds-y)^2
 
 
+######### Seleção de variáveis
+
+names(dados)
+
+library(leaps)
+
+# Seleção do melhor subconjunto
+#Para cada k ∈{0,1,2,...,p} escolhemos o subconjunto de tamanhokque dá 
+#a menor somados quadrados dos resíduos.
+
+regset <- regsubsets(lpsa~., data=dados[,1:8])
+summa <- summary(regset) #Por padrão, regsubsets () relata apenas os resultados até o melhor modelo de oito variáveis. 
+names(summa)
+summa$rsq # R^2
+
+par(mfrow = c (2 ,2) )
+plot(summa$rss,xlab ="Number of Variables", ylab ="RSS",type ="l")
+plot(summa$adjr2 , xlab =" Number of Variables " ,ylab =" Adjusted RSq",type ="l")
+which.max(summa$adjr2) # maior R^2 ajustado 
+points(7,summa$adjr2[7] , col =" red " , cex =2 , pch =20)
+
+plot(summa$cp,xlab =" Number of Variables ",ylab ="Cp",type = "l")
+which.min(summa$cp )
+points(5,summa$cp[5] , col =" red " , cex =2 , pch =20)
+
+plot(summa$bic,xlab =" Number of Variables ",ylab ="BIC",type = "l")
+which.min(summa$bic)
+points(3,summa$bic[3] , col =" red " , cex =2 , pch =20)
+
+plot(regset,scale = "r2")
+#plot(regset,scale ="adjr2") 
+#plot(regset,scale ="Cp")
+#plot(regset,scale ="bic") 
+
+coef(regset,3)
 
 
+## Seleção progressiva (forward)
+
+fit.fwd <- regsubsets(lpsa~., nvmax=8, method ="forward",data=dados[,1:8])
+summary(fit.fwd)
+
+### Seleção regressiva (backward)
+
+fit.back <- regsubsets(lpsa~., nvmax=8, method ="backward",data=dados[,1:8])
+summary(fit.back)
 
 
+library(MASS)
+
+step(lm(lpsa~.,data=dados[,1:8]),direction="both")
+stepAIC(lm(lpsa~.,data=dados[,1:8]),direction="both")
+  
